@@ -1,13 +1,13 @@
-package com.example.lista_convidados.ui.absent
+package com.example.lista_convidados.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class AbsentViewModel : ViewModel() {
+class PresentViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is absent Fragment"
+        value = "This is presents Fragment"
     }
     val text: LiveData<String> = _text
 }

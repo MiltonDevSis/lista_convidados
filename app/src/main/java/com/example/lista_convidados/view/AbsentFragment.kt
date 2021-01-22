@@ -1,4 +1,4 @@
-package com.example.lista_convidados.ui.absent
+package com.example.lista_convidados.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.lista_convidados.R
+import com.example.lista_convidados.viewmodel.AbsentViewModel
 
 class AbsentFragment : Fragment() {
 

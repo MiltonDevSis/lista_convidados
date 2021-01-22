@@ -1,13 +1,13 @@
-package com.example.lista_convidados.ui.all_guest
+package com.example.lista_convidados.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class AllGuestViewModel : ViewModel() {
+class AbsentViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is all guest Fragment"
+        value = "This is absent Fragment"
     }
     val text: LiveData<String> = _text
 }

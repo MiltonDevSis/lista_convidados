@@ -1,13 +1,13 @@
-package com.example.lista_convidados.ui.present
+package com.example.lista_convidados.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PresentViewModel : ViewModel() {
+class AllGuestViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is presents Fragment"
+        value = "This is all guest Fragment"
     }
     val text: LiveData<String> = _text
 }
