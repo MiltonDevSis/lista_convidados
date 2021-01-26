@@ -16,8 +16,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mViewModel: GuestFormViewModel
     val btnSalvar = findViewById<Button>(R.id.btnSalvar)
-    val edtNome = findViewById<TextInputEditText>(R.id.edtNome)
-    val presente = findViewById<RadioButton>(R.id.radioPresente).isChecked
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +31,9 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id){
             R.id.btnSalvar -> {
+
+                val edtNome = findViewById<TextInputEditText>(R.id.edtNome)
+                val presente = findViewById<RadioButton>(R.id.radioPresente).isChecked
 
                 val nome = edtNome.text.toString()
 
