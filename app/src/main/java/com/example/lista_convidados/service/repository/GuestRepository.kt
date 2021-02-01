@@ -31,7 +31,7 @@ class GuestRepository private constructor(context: Context) {
             val selection = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
             val args = arrayOf(id.toString())
 
-            var cursor = db.query(
+            val cursor = db.query(
                 DataBaseConstants.GUEST.TABLE_NAME,
                 projection,
                 selection,
@@ -49,7 +49,7 @@ class GuestRepository private constructor(context: Context) {
 
                guest = GuestModel(id, name, presence)
             }
-            
+
             cursor?.close()
 
             guest
@@ -60,6 +60,43 @@ class GuestRepository private constructor(context: Context) {
 
     fun getAll(): List<GuestModel> {
         val list: MutableList<GuestModel> = ArrayList()
+
+        return try {
+            val db = mGuestDataBaseHelper.readableDatabase
+
+            val projection = arrayOf(
+                DataBaseConstants.GUEST.COLUMNS.ID,
+                DataBaseConstants.GUEST.COLUMNS.NAME,
+                DataBaseConstants.GUEST.COLUMNS.PRESENCE
+            )
+
+            val cursor = db.query(
+                DataBaseConstants.GUEST.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+            )
+
+            if (cursor != null && cursor.count > 0){
+                while (cursor.moveToNext()){
+                    val id = cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.ID))
+                    val name = cursor.getString(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.NAME))
+                    val presence = (cursor.getInt(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
+
+                    val guest = GuestModel(id, name, presence)
+                    list.add(guest)
+                }
+            }
+
+            cursor?.close()
+
+            list
+        } catch (e: Exception) {
+            list
+        }
         return list
     }
 
