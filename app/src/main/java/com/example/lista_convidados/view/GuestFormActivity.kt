@@ -53,6 +53,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             }else{
                 Toasty.error(this, "Falha", Toasty.LENGTH_LONG).show()
             }
+            finish()
         })
     }
 }
