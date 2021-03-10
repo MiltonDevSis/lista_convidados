@@ -1,5 +1,6 @@
 package com.example.lista_convidados.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lista_convidados.R
+import com.example.lista_convidados.listener.GuestListener
+import com.example.lista_convidados.service.constants.GuestConstants
 import com.example.lista_convidados.view.adapter.GuestAdapter
 import com.example.lista_convidados.viewmodel.AllGuestViewModel
 
@@ -18,6 +21,7 @@ class AllGuestFragment : Fragment() {
     private lateinit var all_guest_ViewModel: AllGuestViewModel
 
     private val mAdapter: GuestAdapter = GuestAdapter()
+    private lateinit var mListener: GuestListener
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -37,11 +41,31 @@ class AllGuestFragment : Fragment() {
         //3 - definir um adapter
         recycler.adapter = mAdapter
 
+        mListener = object: GuestListener{
+            override fun onClick(id: Int) {
+
+                val intent = Intent(context, GuestFormActivity::class.java)
+
+                val bundle = Bundle()
+                bundle.putInt(GuestConstants.GUESTID, id)
+
+                intent.putExtras(bundle)
+                startActivity(intent)
+
+            }
+
+        }
+
+        mAdapter.attachListener(mListener)
+
         observer()
 
-        all_guest_ViewModel.load()
-
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        all_guest_ViewModel.load()
     }
 
     private fun observer(){

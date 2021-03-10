@@ -9,8 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.lista_convidados.viewmodel.GuestFormViewModel
 import com.example.lista_convidados.R
+import com.example.lista_convidados.service.constants.GuestConstants
 import com.google.android.material.textfield.TextInputEditText
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.activity_guest_form.*
+import kotlinx.android.synthetic.main.raw_guest.*
 
 class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -23,6 +26,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
         mViewModel = ViewModelProvider(this).get(GuestFormViewModel::class.java)
 
+        loadData()
         setListeners()
         observe()
     }
@@ -41,8 +45,14 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun setListeners(){
-        btnSalvar.setOnClickListener(this)
+    private fun loadData(){
+        val bundle = intent.extras
+
+        if (bundle != null){
+            val id = bundle.getInt(GuestConstants.GUESTID)
+            // carregar
+            mViewModel.load(id)
+        }
     }
 
     fun observe(){
@@ -54,5 +64,18 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
             }
             finish()
         })
+
+        mViewModel.guest.observe(this, Observer {
+            edtNome.setText(it.nome)
+            if (it.presence){
+                radioPresente.isChecked = true
+            } else{
+                radioAusente.isChecked = true
+            }
+        })
+    }
+
+    private fun setListeners(){
+        btnSalvar.setOnClickListener(this)
     }
 }
