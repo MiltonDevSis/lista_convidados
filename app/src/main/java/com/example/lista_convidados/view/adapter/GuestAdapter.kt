@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lista_convidados.R
-import com.example.lista_convidados.listener.GuestListener
+import com.example.lista_convidados.view.listener.GuestListener
 import com.example.lista_convidados.service.model.GuestModel
-import com.example.lista_convidados.view.GuestViewHolder
+import com.example.lista_convidados.view.viewholder.GuestViewHolder
 
 class GuestAdapter : RecyclerView.Adapter<GuestViewHolder>() {
 
@@ -16,7 +16,10 @@ class GuestAdapter : RecyclerView.Adapter<GuestViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestViewHolder {
 
         val item = LayoutInflater.from(parent.context).inflate(R.layout.raw_guest, parent, false)
-        return GuestViewHolder(item, mListener)
+        return GuestViewHolder(
+            item,
+            mListener
+        )
     }
 
     override fun getItemCount(): Int {
